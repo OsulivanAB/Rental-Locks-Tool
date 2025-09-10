@@ -1,0 +1,50 @@
+---
+# Home Assistant Configuration for Rental Locks Tool
+# Basic configuration to enable core functionality
+
+# Basic configuration
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Lock configuration for rental management
+# Note: Replace with actual lock platform configuration
+# Example platforms: zwave, zigbee, mqtt, etc.
+# lock:
+#   - platform: your_lock_platform
+#     name: "Front Door Lock"
+
+# Automation for lock management
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# Groups for organizing locks
+# group:
+#   rental_locks:
+#     name: "Rental Property Locks"
+#     entities:
+#       - lock.front_door_lock
+
+# Input helpers for rental management
+input_boolean:
+  guest_mode:
+    name: "Guest Mode"
+    icon: mdi:account-key
+
+input_datetime:
+  checkout_time:
+    name: "Guest Checkout Time"
+    has_date: true
+    has_time: true
+
+# Sensors for lock status
+# binary_sensor:
+#   - platform: template
+#     sensors:
+#       any_door_unlocked:
+#         friendly_name: "Any Door Unlocked"
+#         value_template: >-
+#           {{ is_state('lock.front_door_lock', 'unlocked') }}

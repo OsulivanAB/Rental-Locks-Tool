@@ -1,0 +1,37 @@
+---
+# Scripts for Rental Locks Tool
+# Add your lock management scripts here
+
+# Script to prepare for new guest
+prepare_for_guest:
+  alias: "Prepare for New Guest"
+  description: "Unlock doors and enable guest mode"
+  sequence:
+    - service: lock.unlock
+      target:
+        entity_id: lock.front_door_lock
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.guest_mode
+    - service: notify.persistent_notification
+      data:
+        message: >-
+          Property prepared for new guest. Front door unlocked and guest
+          mode enabled.
+        title: "Rental Locks Tool"
+
+# Script to secure property
+secure_property:
+  alias: "Secure Property"
+  description: "Lock all doors and disable guest mode"
+  sequence:
+    - service: lock.lock
+      target:
+        entity_id: lock.front_door_lock
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.guest_mode
+    - service: notify.persistent_notification
+      data:
+        message: "Property secured. All doors locked and guest mode disabled."
+        title: "Rental Locks Tool"

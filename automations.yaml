@@ -1,0 +1,27 @@
+---
+# Automations for Rental Locks Tool
+# Add your lock management automations here
+
+# Example: Lock doors when guest checkout time is reached
+- id: "lock_doors_at_checkout"
+  alias: "Lock Doors at Guest Checkout"
+  description: "Automatically lock all doors when checkout time is reached"
+  trigger:
+    - platform: template
+      value_template: >-
+        {{ now() >= states('input_datetime.checkout_time') | as_datetime }}
+  condition:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "on"
+  action:
+    - service: lock.lock
+      target:
+        entity_id: lock.front_door_lock
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.guest_mode
+    - service: notify.persistent_notification
+      data:
+        message: "Guest checkout complete. All doors have been locked."
+        title: "Rental Locks Tool"

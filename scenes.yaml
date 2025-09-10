@@ -1,0 +1,21 @@
+---
+# Scenes for Rental Locks Tool
+# Add your lock management scenes here
+
+# Scene for guest arrival
+- name: "Guest Arrival"
+  entities:
+    lock.front_door_lock: unlocked
+    input_boolean.guest_mode: "on"
+
+# Scene for guest departure
+- name: "Guest Departure"
+  entities:
+    lock.front_door_lock: locked
+    input_boolean.guest_mode: "off"
+
+# Scene for maintenance mode
+- name: "Maintenance Mode"
+  entities:
+    lock.front_door_lock: unlocked
+    input_boolean.guest_mode: "off"
