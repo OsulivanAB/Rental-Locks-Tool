@@ -1,6 +1,7 @@
+---
 name: Check Home Assistant Configuration
 
-on:
+"on":
   push:
   pull_request:
 
